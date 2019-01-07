@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>HTML5 Canvas Sample</title>
+    <style media="screen">
+        #container {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          overflow: hidden;
+        }
+    </style>
+    <script type="text/javascript" src='../build/delta.require.js'></script>
+  </head>
+  <body>
+    <div id="container">
+    </div>
+    <script type="text/javascript">
+      var d = new delta.Delta({
+        container: 'container',
+        hasGrid: true
+      });
+      var shape = new delta.RegularPolygon({
+        x: 200,
+        y: 200,
+        size: 80
+      });
+      var shape2 = new delta.RegularPolygon({
+        x: 300,
+        y: 300,
+        size: 120,
+        sides: 6,
+        strokeStyle: '#ff0'
+      });
+      d.add([shape, shape2]);
+    </script>
+  </body>
+</html>
