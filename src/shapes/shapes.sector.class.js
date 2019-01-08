@@ -1,48 +1,27 @@
 import Shape from './shapes.object.class';
-import settings from '../delta.settings'
 
-export default class RegularPolygon extends Shape {
+export default class Sector extends Shape {
   constructor(option) {
     super(option);
-    this.type = 'regular-polygon';
+    this.type = 'sector';
+    this.radius = option.radius || 20;
+    this.startAngle = option.startAngle || 0;
+    this.endAngle = option.endAngle || Math.PI * 2;
+    this.clockwise = option.clockwise || true;
   }
-  getCenter() {
-    if (!this.x && this.x !== 0 || !this.y && this.y !== 0) {
-      throw "x or y property is required!";
-    }
-    return {
-      x: this.x,
-      y: this.y
-    }
-  }
-  getSize() {
-    return this.size || 20;
-  }
-  getPoints() {
-    let points = [],
-        center = this.getCenter(),
-        startAngle = this.startAngle || 0,
-        size = this.getSize(),
-        sides = this.sides || 3,
-        angleStep = Math.PI * 2 / sides;
-    for (let i = 0; i < sides; i++) {
-      points.push({
-        x: center.x + size * Math.cos(startAngle),
-        y: center.y + size * Math.sin(startAngle)
-      });
-      startAngle += angleStep;
-    }
-    return points;
-  }
+
   render(ctx) {
-    let points = this.getPoints();
-    ctx.fillStyle = this.fillStyle || settings('fillStyle');
-    ctx.strokeStyle = this.strokeStyle || settings('strokeStyle');
-    ctx.lineWidth = this.lineWidth || settings('lineWidth');
+    ctx.fillStyle = this.fillStyle;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.lineWidth = this.lineWidth;
     ctx.beginPath();
-    ctx.moveTo(points[0].x, points[0].y);
-    for (var i = 1, len = points.length; i < len; i++) {
-      ctx.lineTo(points[i].x, points[i].y);
+    if (Math.abs(this.endAngle - this.startAngle - Math.PI * 2) < 0.001) {
+      ctx.arc(this.x, this.y, this.radius,
+              this.startAngle, this.endAngle, !this.clockwise);
+    } else {
+      ctx.moveTo(this.x, this.y);
+      ctx.arc(this.x, this.y, this.radius,
+              this.startAngle, this.endAngle, !this.clockwise);
     }
     ctx.closePath();
     ctx.stroke();

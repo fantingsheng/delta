@@ -1,5 +1,4 @@
 import Shape from './shapes.object.class';
-import settings from '../delta.settings'
 
 export default class RegularPolygon extends Shape {
   constructor(option) {
@@ -36,9 +35,9 @@ export default class RegularPolygon extends Shape {
   }
   render(ctx) {
     let points = this.getPoints();
-    ctx.fillStyle = this.fillStyle || settings('fillStyle');
-    ctx.strokeStyle = this.strokeStyle || settings('strokeStyle');
-    ctx.lineWidth = this.lineWidth || settings('lineWidth');
+    ctx.fillStyle = this.fillStyle;
+    ctx.strokeStyle = this.strokeStyle;
+    ctx.lineWidth = this.lineWidth;
     ctx.beginPath();
     ctx.moveTo(points[0].x, points[0].y);
     for (var i = 1, len = points.length; i < len; i++) {

@@ -35,7 +35,14 @@
         sides: 6,
         strokeStyle: '#ff0'
       });
-      d.add([shape, shape2]);
+      var shape3 = new delta.Sector({
+        x: 500,
+        y: 500,
+        radius: 120,
+        startAngle: Math.PI / 4,
+        endAngle: Math.PI * 10/7
+      });
+      d.add([shape, shape2, shape3]);
     </script>
   </body>
 </html>
